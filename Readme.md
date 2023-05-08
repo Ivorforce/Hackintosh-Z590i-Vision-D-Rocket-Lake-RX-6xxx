@@ -9,6 +9,7 @@ I am not uploading kexts, drivers and the likes, but it should be easy to recons
 - Copy `config.plist` from this repo, place it as `EFI/OC/config.plist`.
 - Run [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) with model `MacPro7,1` on it (needs to be this model because of Secure Boot and DRM).
 - Download Kexts as detailed below. If you make changes, use [ProperTree](https://github.com/corpnewt/ProperTree) cmd+r to reassemple your references in `config.plist`.
+- Follow the rest of the [Open Core Tutorials](https://dortania.github.io/OpenCore-Install-Guide/) to install and use macOS.
 - Let me know if you fix one of the issues!
 
 ### References
@@ -29,6 +30,8 @@ I am not uploading kexts, drivers and the likes, but it should be easy to recons
 	- [WiFi / BlueTooth](https://www.intel.com/content/www/us/en/products/sku/189347/intel-wifi-6-ax200-gig/specifications.html)
 - CPU: [Intel i7-11700k](https://www.intel.com/content/www/us/en/products/sku/212047/intel-core-i711700k-processor-16m-cache-up-to-5-00-ghz/specifications.html)
 - GPU: [Radeon 6600 XT](https://www.amd.com/en/products/graphics/amd-radeon-rx-6600-xt)
+
+You should be able to use this configuration as long as your mainboard is the same, your CPU is 11th generation intel, and your GPU is of the 6xxx series. Otherwise, you'll have to make adjustments (or start somewhere else).
 
 ## Features
 
