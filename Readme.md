@@ -59,6 +59,7 @@ I am not uploading kexts, drivers and the likes, but it should be easy to recons
 - Programming (Godot / XCode / PyCharm): Works.
 - DAW (Bitwig) / Sound Editing: Works.
 	- Native Access: Crashes with GPU problems.
+- Video Editing (Final Cut): Works.
 
 ## BIOS
 
