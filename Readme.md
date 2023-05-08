@@ -18,7 +18,7 @@ I am not uploading kexts, drivers and the likes, but it should be easy to recons
 	- [Same Mainboard, similar GPU, CPU](https://www.tonymacx86.com/threads/guide-oc-monterey-z590i-gigabyte-vision-d-i9-11900k-amd-rx6600.317472/): This is where I started.
 	- [Same Mainboard, Ssimilar GPU, CPU](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k)
 	- [Same GPU, CPU, similar mainboard](https://www.tonymacx86.com/threads/success-gigabyte-z590-vision-d-11700k-rx-6600-xt.316601/)
-- General 11th generation Intel (Rocket Lake) information: [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE) (repo) and [here]([this](https://github.com/dortania/OpenCore-Install-Guide/pull/343)) (unmerged OpenCore Tutorial PR)
+- General 11th generation Intel (Rocket Lake) information: [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE) (repo) and [here](https://github.com/dortania/OpenCore-Install-Guide/pull/343) (unmerged OpenCore Tutorial PR)
 
 
 ## Hardware
