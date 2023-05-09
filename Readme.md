@@ -19,7 +19,7 @@ I am not uploading kexts, drivers and the likes, but it should be easy to recons
 	- [Same Mainboard, similar GPU, CPU](https://www.tonymacx86.com/threads/guide-oc-monterey-z590i-gigabyte-vision-d-i9-11900k-amd-rx6600.317472/): This is where I started.
 	- [Same Mainboard, similar GPU, CPU](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k)
 	- [Same GPU, CPU, similar mainboard](https://www.tonymacx86.com/threads/success-gigabyte-z590-vision-d-11700k-rx-6600-xt.316601/)
-- General 11th generation Intel (Rocket Lake) information: [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE) (repo) and [here]([this](https://github.com/dortania/OpenCore-Install-Guide/pull/343)) (unmerged OpenCore Tutorial PR)
+- General 11th generation Intel (Rocket Lake) information: [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE) (repo) and [here](https://github.com/dortania/OpenCore-Install-Guide/pull/343) (unmerged OpenCore Tutorial PR)
 
 
 ## Hardware
@@ -38,8 +38,8 @@ You should be able to use this configuration as long as your mainboard is the sa
 
 ### Hardware
 
-- WiFi: Reliable, but on some launches the device is missing (requiring a relaunch)
-- Bluetooth: Reliable, but don't deactivate it, it can't be reactivated.
+- WiFi: Works
+- Bluetooth: Works, but can't be re-activated. If you turn it off, run `sudo pkill bluetoothd`.
 	- AirDrop: Unsupported, via [AirportItlwm](https://openintelwireless.github.io/itlwm/FAQ.html#features).
 	- Continuity (shared clipboard, handoff): Works One-Way, limited via [AirportItlwm](https://openintelwireless.github.io/itlwm/FAQ.html#features).
 	- Screen Mirroring: Works One-Way.
@@ -102,7 +102,7 @@ Remember to re-do Secure Boot on OpenCore updates!
 
 - (2023-05-06) Delete AGPMInjector (hardware specific file)
 - (2023-05-06) Disabled Whatevergreen (blanked my screen)
-- (2023-05-06) Updated OpenCore and kexts, fixing WiFi (?)
+- (2023-05-06) Updated OpenCore and kexts
 - (2023-05-06) Pin SecureBootModel to j185f according to [this guide](https://dortania.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html#securebootmodel)
 - (2023-05-06) Delete IntelBluetoothInjector, AppleMCEReporterDisabler, AirportBrcmFixup (not needed)
 - (2023-05-06) Add e1000=0 to boot-args ([Reasoning Here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE))
