@@ -60,10 +60,10 @@ You should be able to use this configuration as long as your mainboard is the sa
 - Video Playback: Works.
 	- Netflix (DRM!): Works.
 	- Youtube: Works.
-- Steam: Blackscreens on login window.
+- Steam: Works.
 - Programming (Godot / XCode / PyCharm): Works.
 - DAW (Bitwig) / Sound Editing: Works.
-	- Native Access: Crashes with GPU problems.
+	- Native Access: Works.
 - Video Editing (Final Cut): Works.
 
 ## BIOS
@@ -118,6 +118,7 @@ Remember to re-do Secure Boot on OpenCore updates!
 - (2023-05-08) Re-Enable VT-D in BIOS and remove `e1000=0` from boot-args. Many claim the i225v will kill the mac, but it runs fine.
 - (2023-05-09) Don't delete DMAR and set DisableIoMapper to true. This retains Thunderbolt audio and is [recommended in the docs](https://dortania.github.io/docs/latest/Configuration.html).
 - (2023-05-09) Remove unnecessary patch entries: 3 were FixHPET entries, [which is not needed](https://dortania.github.io/Getting-Started-With-ACPI/ssdt-methods/ssdt-easy.html#running-ssdttime) for us. One was PEGP -> GFX0 which [is not needed when using Lilu / Whatevergreen](https://www.insanelymac.com/forum/topic/346381-is-gfx0-patch-needed/). The rest was disabled and thus bloat.
+- (2023-05-09) (2023-05-09) Remove `amfi_get_out_of_my_way=1` from boot-args, fixing Native Access, Steam (and other Electron apps). An alternative solution would be to add `ipc_control_port_options=0`, but AMFI is [apparently supported now](https://www.hackintosh-forum.de/forum/thread/56383-macos-13-ventura-beta/?pageNo=100) and the argument can thus safely be removed. The issue was an EXC_GUARD, or more verbosely `ILLEGAL_MOVE on mach port 515`.
 
 ### OpenCore
 
