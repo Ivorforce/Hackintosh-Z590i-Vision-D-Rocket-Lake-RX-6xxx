@@ -10,15 +10,16 @@ I am not uploading kexts, drivers and the likes, but it should be easy to recons
 - Run [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) with model `MacPro7,1` on it (needs to be this model because of Secure Boot and DRM).
 - Download Kexts as detailed below. If you make changes, use [ProperTree](https://github.com/corpnewt/ProperTree) cmd+r to reassemple your references in `config.plist`.
 - Follow the rest of the [Open Core Tutorials](https://dortania.github.io/OpenCore-Install-Guide/) to install and use macOS.
+- Boot into recovery and run `csrutil enable` there.
 - Let me know if you fix one of the issues!
 
 ### References
 
 - Similar Builds (thank you!)
 	- [Same Mainboard, similar GPU, CPU](https://www.tonymacx86.com/threads/guide-oc-monterey-z590i-gigabyte-vision-d-i9-11900k-amd-rx6600.317472/): This is where I started.
-	- [Same Mainboard, Ssimilar GPU, CPU](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k)
+	- [Same Mainboard, similar GPU, CPU](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k)
 	- [Same GPU, CPU, similar mainboard](https://www.tonymacx86.com/threads/success-gigabyte-z590-vision-d-11700k-rx-6600-xt.316601/)
-- General 11th generation Intel (Rocket Lake) information: [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE) (repo) and [here](https://github.com/dortania/OpenCore-Install-Guide/pull/343) (unmerged OpenCore Tutorial PR)
+- General 11th generation Intel (Rocket Lake) information: [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE) (repo) and [here]([this](https://github.com/dortania/OpenCore-Install-Guide/pull/343)) (unmerged OpenCore Tutorial PR)
 
 
 ## Hardware
@@ -39,15 +40,16 @@ You should be able to use this configuration as long as your mainboard is the sa
 
 - WiFi: Reliable, but on some launches the device is missing (requiring a relaunch)
 - Bluetooth: Reliable, but don't deactivate it, it can't be reactivated.
-	- AirDrop: Other devices can be seen, but it itself is invisible. Can't send files.
-	- Handoff (shared clipboard, quick app switch etc.): Works.
-	- Screen Mirroring: Can mirror to others, but is not itself visible.
-- LAN: Not tested.
+	- AirDrop: Can see others (one-way), but not send files.
+	- Handoff (shared clipboard, quick app switch etc.): Works One-Way.
+	- Screen Mirroring: Works One-Way.
+- LAN: Doesn't work.
 - USB-C Devices: Works.
 	- USB / Bluetooth Wakeup: Works.
 	- Not all USB Ports are mappable, because macOS supports fewer ports than the Gigabyte Z590i Vision D offers. Therefore, some do not work.
 - Thunderbolt: Not Tested.
 	- Video Output via Thunderbolt: Doesn't Work.
+	- Audio Output via Thunderbolt: Works (VT-d).
 - iGPU: Doesn't work (11th gen not supported by Apple)
 - Digital Sound (via USB): Works.
 - NVMe Drive: Works.
@@ -77,7 +79,7 @@ Keep the [Gigabyte BIOS Manual](https://download.gigabyte.com/FileList/Manual/mb
 - Thunderbolt Enabled
 - Hyper-Threading Enabled
 
-- VT-d Disabled (See [here](https://github.com/dortania/OpenCore-Install-Guide/pull/343))
+- VT-d Enabled ([This](https://github.com/dortania/OpenCore-Install-Guide/pull/343) claims it must be off, but it works fine when on. AppleVTD [wants it on](https://elitemacx86.com/threads/how-to-enable-apple-vtd-on-macos-clover-opencore.868/).)
 - CSM Disabled
 - TPM Disabled
 - CFG Lock Disabled (See [here](https://github.com/dortania/OpenCore-Install-Guide/pull/343) and [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE))
@@ -113,6 +115,9 @@ Remember to re-do Secure Boot on OpenCore updates!
 - (2023-05-08) Adapt ACPI from [here](https://github.com/SchmockLord/Hackintosh-Intel-i9-10900k-AsRock-Z490-Phantom-ITX-TB3) instead, which is less bloated.
 - (2023-05-08) Use MacPro7,1 as spoof platform [as this fixes DRM](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.Chart.md) (Netflix etc.)
 - (2023-05-08) Clean up unneeded kexts, and document the rest.
+- (2023-05-08) Re-Enable VT-D in BIOS and remove `e1000=0` from boot-args. Many claim the i225v will kill the mac, but it runs fine.
+- (2023-05-09) Don't delete DMAR and set DisableIoMapper to true. This retains Thunderbolt audio and is [recommended in the docs](https://dortania.github.io/docs/latest/Configuration.html).
+- (2023-05-09) Remove unnecessary patch entries: 3 were FixHPET entries, [which is not needed](https://dortania.github.io/Getting-Started-With-ACPI/ssdt-methods/ssdt-easy.html#running-ssdttime) for us. One was PEGP -> GFX0 which [is not needed when using Lilu / Whatevergreen](https://www.insanelymac.com/forum/topic/346381-is-gfx0-patch-needed/). The rest was disabled and thus bloat.
 
 ### OpenCore
 
