@@ -43,17 +43,17 @@ You should be able to use this configuration as long as your mainboard is the sa
 	- AirDrop: Can see others (one-way), but not send files.
 	- Handoff (shared clipboard, quick app switch etc.): Works One-Way.
 	- Screen Mirroring: Works One-Way.
-- LAN: Doesn't work.
+- LAN: Works.
 - USB-C Devices: Works.
 	- USB / Bluetooth Wakeup: Works.
 	- Not all USB Ports are mappable, because macOS supports fewer ports than the Gigabyte Z590i Vision D offers. Therefore, some do not work.
 - Thunderbolt: Not Tested.
 	- Video Output via Thunderbolt: Doesn't Work.
-	- Audio Output via Thunderbolt: Works (VT-d).
+	- Audio Output via Thunderbolt: Works (`VT-d` must be enabled).
 - iGPU: Doesn't work (11th gen not supported by Apple)
 - Digital Sound (via USB): Works.
 - NVMe Drive: Works.
-- VDA DEcoding / Hardware Acceleration: Works.
+- VDA Decoding / Hardware Acceleration: Works.
 
 ### Apps
 
@@ -85,7 +85,7 @@ Keep the [Gigabyte BIOS Manual](https://download.gigabyte.com/FileList/Manual/mb
 - CFG Lock Disabled (See [here](https://github.com/dortania/OpenCore-Install-Guide/pull/343) and [here](https://github.com/luchina-gabriel/BASE-EFI-INTEL-DESKTOP-11THGEN-ROCKET-LAKE))
 - Legacy USB Support Disabled (who needs this?)
 
-Enable Secure Boot and config thunderbolt via [this](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k).
+Enable Secure Boot and config thunderbolt like [described here](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k).
 Remember to re-do Secure Boot on OpenCore updates!
 
 ## Documentation
@@ -119,10 +119,11 @@ Remember to re-do Secure Boot on OpenCore updates!
 - (2023-05-09) Don't delete DMAR and set DisableIoMapper to true. This retains Thunderbolt audio and is [recommended in the docs](https://dortania.github.io/docs/latest/Configuration.html).
 - (2023-05-09) Remove unnecessary patch entries: 3 were FixHPET entries, [which is not needed](https://dortania.github.io/Getting-Started-With-ACPI/ssdt-methods/ssdt-easy.html#running-ssdttime) for us. One was PEGP -> GFX0 which [is not needed when using Lilu / Whatevergreen](https://www.insanelymac.com/forum/topic/346381-is-gfx0-patch-needed/). The rest was disabled and thus bloat.
 - (2023-05-09) (2023-05-09) Remove `amfi_get_out_of_my_way=1` from boot-args, fixing Native Access, Steam (and other Electron apps). An alternative solution would be to add `ipc_control_port_options=0`, but AMFI is [apparently supported now](https://www.hackintosh-forum.de/forum/thread/56383-macos-13-ventura-beta/?pageNo=100) and the argument can thus safely be removed. The issue was an EXC_GUARD, or more verbosely `ILLEGAL_MOVE on mach port 515`.
+- (2023-05-09) Add `AppleIntelI210Ethernet` kexts, fixing LAN. There is a lot of talk on the internet about spoofing it as i225-lm by setting the device-id... Nothing of the sort worked for me, but this kext adds a fitting driver, paired with `e1000=0` in `boot-args` which disables the native LAN driver finally fixes LAN. `DisableIOMapper` and `DisableIOMapperMapping` may also be required (not sure).
 
 ### OpenCore
 
-Currently on `0.9.1`.
+Currently on `0.9.2`.
 
 ### ACPI (kindly copied from [here](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k))
 
@@ -153,5 +154,6 @@ Note: I haven't tested if all are actually required, some tweaking may be useful
 - NVMeFix: NVMe Support
 - RadeonSensor: Radeon GPU Support
 - RestrictEvents: Various event block fixes, e.g. for the used MacPro7,1 model
-- USBToolBox.kext: USB Port Map Library
-- UTBMap.kext: USB Port Map
+- USBToolBox: USB Port Map Library
+- UTBMap: USB Port Map
+- AppleIntelI210Ethernet: Adds a LAN driver for i225-v while `e1000=0` in boot-args disables the broken one.
