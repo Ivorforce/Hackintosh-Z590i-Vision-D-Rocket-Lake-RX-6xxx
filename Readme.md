@@ -40,8 +40,8 @@ You should be able to use this configuration as long as your mainboard is the sa
 
 - WiFi: Reliable, but on some launches the device is missing (requiring a relaunch)
 - Bluetooth: Reliable, but don't deactivate it, it can't be reactivated.
-	- AirDrop: Can see others (one-way), but not send files.
-	- Handoff (shared clipboard, quick app switch etc.): Works One-Way.
+	- AirDrop: Unsupported, via [AirportItlwm](https://openintelwireless.github.io/itlwm/FAQ.html#features).
+	- Continuity (shared clipboard, handoff): Works One-Way, limited via [AirportItlwm](https://openintelwireless.github.io/itlwm/FAQ.html#features).
 	- Screen Mirroring: Works One-Way.
 - LAN: Works.
 - USB-C Devices: Works.
@@ -148,9 +148,9 @@ Note: I haven't tested if all are actually required, some tweaking may be useful
 - WhateverGreen: Important graphics and DRM fixes
 - AirportItlwm: WiFi and Bluetooth
 - AppleALCU: Digital-Only Sound
-- BlueToolFixup: Bluetooth card support
-- IntelBluetoothFirmware: Bluetooth card support
-- IntelBTPatcher: Bluetooth bug fixes
+- BlueToolFixup: Bluetooth software stack fixes
+- IntelBluetoothFirmware: Works without it; [may improve bluetooth stability](https://openintelwireless.github.io/IntelBluetoothFirmware/FAQ.html#what-does-this-kext-do)?
+- IntelBTPatcher: Works without it; [may improve bluetooth stability](https://openintelwireless.github.io/IntelBluetoothFirmware/FAQ.html#what-does-this-kext-do)?
 - NVMeFix: NVMe Support
 - RadeonSensor: Radeon GPU Support
 - RestrictEvents: Various event block fixes, e.g. for the used MacPro7,1 model
