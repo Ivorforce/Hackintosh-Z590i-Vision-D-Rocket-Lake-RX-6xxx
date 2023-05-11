@@ -38,7 +38,7 @@ You should be able to use this configuration as long as your mainboard is the sa
 
 ### Hardware
 
-- WiFi: Works
+- WiFi: Works, but may not launch properly, requiring a re-boot.
 - Bluetooth: Works, but can't be re-activated. If you turn it off, run `sudo pkill bluetoothd`.
 	- AirDrop: Unsupported, via [AirportItlwm](https://openintelwireless.github.io/itlwm/FAQ.html#features).
 	- Continuity (shared clipboard, handoff): Works One-Way, limited via [AirportItlwm](https://openintelwireless.github.io/itlwm/FAQ.html#features).
@@ -120,25 +120,24 @@ Remember to re-do Secure Boot on OpenCore updates!
 - (2023-05-09) Remove unnecessary patch entries: 3 were FixHPET entries, [which is not needed](https://dortania.github.io/Getting-Started-With-ACPI/ssdt-methods/ssdt-easy.html#running-ssdttime) for us. One was PEGP -> GFX0 which [is not needed when using Lilu / Whatevergreen](https://www.insanelymac.com/forum/topic/346381-is-gfx0-patch-needed/). The rest was disabled and thus bloat.
 - (2023-05-09) (2023-05-09) Remove `amfi_get_out_of_my_way=1` from boot-args, fixing Native Access, Steam (and other Electron apps). An alternative solution would be to add `ipc_control_port_options=0`, but AMFI is [apparently supported now](https://www.hackintosh-forum.de/forum/thread/56383-macos-13-ventura-beta/?pageNo=100) and the argument can thus safely be removed. The issue was an EXC_GUARD, or more verbosely `ILLEGAL_MOVE on mach port 515`.
 - (2023-05-09) Add `AppleIntelI210Ethernet` kexts, fixing LAN. There is a lot of talk on the internet about spoofing it as i225-lm by setting the device-id... Nothing of the sort worked for me, but this kext adds a fitting driver, paired with `e1000=0` in `boot-args` which disables the native LAN driver finally fixes LAN. `DisableIOMapper` and `DisableIOMapperMapping` may also be required (not sure).
+- (2023-05-10) Replace USB wake fix with the one [recommended in Dortania](https://dortania.github.io/OpenCore-Post-Install/usb/misc/keyboard.html#method-1-add-wake-type-property-recommended) (DeviceProperties `acpi-wake-type`)
+- (2023-05-10) Remove ACPI USB port maps - they don't work in macOS 11+, and we have the USB map kexts anyway.
+- (2023-05-11) Remap USB Ports, and add an image of the mapping, as well as templates.
+
+### USB Map
+
+<p align="center">
+  <img src="USB/USB-map.png" width="100%" align=center alt="USB Port Mapping Z590i Vision D">
+</p>
 
 ### OpenCore
 
-Currently on `0.9.2`.
+Currently on OpenCore `0.9.2`, macOS `13.3.3` (Ventura).
 
-### ACPI (kindly copied from [here](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k))
+- ACPI: kindly mostly copied from [here](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k)
+	- For reasonings on adding kexts and acpi, see comments in `config.plist`.
 
-- SSDT-EC-USBX: [Desktop USB EC Fix](https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html)
-- SSDT-PLUG: [CPU Power Management](https://dortania.github.io/Getting-Started-With-ACPI/Universal/plug.html) from [here](https://www.tonymacx86.com/threads/guide-oc-monterey-z590i-gigabyte-vision-d-i9-11900k-amd-rx6600.317472/)
-- SSDT-AWAX: Fix [System Clock](https://dortania.github.io/Getting-Started-With-ACPI/Universal/awac.html)
-- SSDT-DTPG: Thunderbolt
-- SSDT-MAPLE-RIDGE-RP05-V2: Thunderbolt
-- SSDT-Disable-CNVW: No idea, but it's needed to launch.
-- SSDT-USB-Ports: USB Port mapping
-- SSDT-USBW: USB Wakeup Fix
-
-### Kext
-
-Note: I haven't tested if all are actually required, some tweaking may be useful.
+### Kexts
 
 - Lilu: Always required
 - VirtualSMC: SMC Emulator, always required
@@ -155,5 +154,5 @@ Note: I haven't tested if all are actually required, some tweaking may be useful
 - RadeonSensor: Radeon GPU Support
 - RestrictEvents: Various event block fixes, e.g. for the used MacPro7,1 model
 - USBToolBox: USB Port Map Library
-- UTBMap: USB Port Map
+- UTBMap: USB Port Map / Use `usb.json` and the image for a remap
 - AppleIntelI210Ethernet: Adds a LAN driver for i225-v while `e1000=0` in boot-args disables the broken one.
