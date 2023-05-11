@@ -126,6 +126,8 @@ Remember to re-do Secure Boot on OpenCore updates!
 
 ### USB Map
 
+To use my USB map, copy `UTBMap.kext` from `./USB`. To remap, feel free to use the images there as reference for [USBToolbox](https://github.com/USBToolBox/tool).
+
 <p align="center">
   <img src="USB/USB-map.png" width="100%" align=center alt="USB Port Mapping Z590i Vision D">
 </p>
@@ -154,5 +156,5 @@ Currently on OpenCore `0.9.2`, macOS `13.3.3` (Ventura).
 - RadeonSensor: Radeon GPU Support
 - RestrictEvents: Various event block fixes, e.g. for the used MacPro7,1 model
 - USBToolBox: USB Port Map Library
-- UTBMap: USB Port Map / Use `usb.json` and the image for a remap
+- UTBMap: USB Port Map / find it inside `./USB`
 - AppleIntelI210Ethernet: Adds a LAN driver for i225-v while `e1000=0` in boot-args disables the broken one.
