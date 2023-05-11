@@ -4,14 +4,15 @@ Hi, this is my OpenCore Hackintosh build.
 
 I am not uploading kexts, drivers and the likes, but it should be easy to reconstruct my build from the documentation with reasonings I provide. 
 
-- Set up BIOS (as detailed below), (or like [here](https://github.com/SchmockLord/Gigabyte-Z590i-Vision-D-11900k) or [here](https://www.tonymacx86.com/threads/guide-oc-monterey-z590i-gigabyte-vision-d-i9-11900k-amd-rx6600.317472/))
+- Set up BIOS (as detailed below)
 - Follow [Open Core Tutorials](https://dortania.github.io/OpenCore-Install-Guide/) until you get to the EFI parts.
 - Copy `config.plist` from this repo, place it as `EFI/OC/config.plist`.
 - Run [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) with model `MacPro7,1` on it (needs to be this model because of Secure Boot and DRM).
-- Download Kexts as detailed below. If you make changes, use [ProperTree](https://github.com/corpnewt/ProperTree) cmd+r to reassemple your references in `config.plist`.
+- Download Kexts as detailed below (from their respective websites, except UTBMap which I provide).
 - Follow the rest of the [Open Core Tutorials](https://dortania.github.io/OpenCore-Install-Guide/) to install and use macOS.
 - Boot into recovery and run `csrutil enable` there.
-- Let me know if you fix one of the issues!
+- Because you have no builtin display, I recommend using [MonitorControl](https://github.com/MonitorControl/MonitorControl) for working brightness buttons.
+- Let me know if you have any questions, and feel free to contribute!
 
 ### References
 
@@ -48,9 +49,9 @@ You should be able to use this configuration as long as your mainboard is the sa
 	- USB / Bluetooth Wakeup: Works.
 	- Not all USB Ports are mappable, because macOS supports fewer ports than the Gigabyte Z590i Vision D offers. Therefore, some do not work.
 - Thunderbolt: Not Tested.
-	- Video Output via Thunderbolt: Doesn't Work.
+	- Video Output via Thunderbolt: Doesn't Work (perhaps because of missing iGPU).
 	- Audio Output via Thunderbolt: Works (`VT-d` must be enabled).
-- iGPU: Doesn't work (11th gen not supported by Apple)
+- iGPU: Doesn't work (11th gen is not supported by Apple)
 - Digital Sound (via USB): Works.
 - NVMe Drive: Works.
 - VDA Decoding / Hardware Acceleration: Works.
