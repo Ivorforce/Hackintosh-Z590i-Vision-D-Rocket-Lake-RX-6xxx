@@ -9,6 +9,7 @@ I am not uploading kexts, drivers and the likes, but it should be easy to recons
 - Copy `config.plist` from this repo, place it as `EFI/OC/config.plist`.
 - Run [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) with model `MacPro7,1` on it (needs to be this model because of Secure Boot and DRM).
 - Download Kexts as detailed below (from their respective websites, except UTBMap which I provide).
+- Download ACPI from [./ACPI](./ACPI)
 - Follow the rest of the [Open Core Tutorials](https://dortania.github.io/OpenCore-Install-Guide/) to install and use macOS.
 - Boot into recovery and run `csrutil enable` there.
 - Because you have no builtin display, I recommend using [MonitorControl](https://github.com/MonitorControl/MonitorControl) for working brightness buttons.
